@@ -72,7 +72,7 @@ router.get("/:cartId/complete", (req, res) => {
 
   // req.session.cartAndUserInfo = { ...cartDetail, userId: userId };
   res.header("Authorization", req.headers["authorization"]);
-  res.redirect(`/order/create/${+req.params.cartId}`);
+  res.redirect(`/api/order/create/${+req.params.cartId}`);
 });
 
 router.get("/list", (req, res) => {
