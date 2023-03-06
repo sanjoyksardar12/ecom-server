@@ -15,9 +15,11 @@ const PORT = 4000;
 const app = express();
 app.use(
   cors({
-    origin: "https://ecom-client-one.vercel.app/",
+    origin: "https://ecom-client-one.vercel.app/", // pass it from env
   })
 );
+app.options("*", cors());
+
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true })); // to uspport JSON-encoded bodies
