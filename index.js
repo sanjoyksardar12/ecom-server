@@ -15,7 +15,7 @@ const PORT = 4000;
 const app = express();
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: "https://ecom-client-one.vercel.app/",
   })
 );
 app.use(bodyParser.json());
