@@ -8,50 +8,63 @@ const USERS = new Map();
 let NO_OF_USERS = 0;
 
 // attached userDetail in request
-
-router.post("/create", (req, res, next) => {
-  // unique username
-  const { username, password } = req.body;
+function createAccount(username, password) {
   const userDetail = {
     id: NO_OF_USERS++,
     username: username,
     password: password,
   };
-  console.log("username- password", username, password);
   // add validation of username and password
   USERS.set(userDetail.username, userDetail);
+  return userDetail;
+}
+
+function generateUserToken(userDetail) {
   const token = generateAccessToken({
     id: userDetail.id,
     username: userDetail.username,
     password: userDetail.password,
   });
-  console.log("token", token);
+  return token;
+}
+
+router.post("/create", (req, res) => {
+  // unique username
+  const { username, password } = req.body;
+  const userDetail = createAccount(username, password);
+  const token = generateUserToken(userDetail);
+
   res.set({
     "Content-Type": "application/json",
   });
   res.status(200).send({ success: true, token });
 });
 
-router.post("/login", (req, res, next) => {
+router.post("/login", (req, res) => {
   const { username, password } = req.body;
-  const userDetail = USERS.get(username);
-  if (!userDetail) {
-    // invalid username
+  let userDetail = USERS.get(username);
+
+  if (userDetail && userDetail.password !== password) {
+    res.set({
+      "Content-Type": "application/json",
+    });
+    res.status(401).send({
+      success: false,
+      message: "Invalid username or password!!",
+    });
     return;
   }
-  if (userDetail.password !== password) {
-    //invalid password
-    return;
+  if (!userDetail) {
+    userDetail = createAccount(username, password);
   }
 
-  const token = generateAccessToken({
+  let token = generateAccessToken({
     username: userDetail.username,
     password: userDetail.password,
     id: userDetail.id,
   });
-  console.log("token", token);
+
   res.status(200).send({ success: true, token });
-  //   USERS.set(userDetail.username, userDetail);
 });
 
 router.get("/list", (req, res, next) => {

@@ -5,7 +5,6 @@ const { CARTS } = require("./cart");
 const router = express.Router();
 
 const ORDERS = new Map();
-let NO_OF_ORDERS = 0;
 
 router.get("/create/:cartId", (req, res) => {
   const cartId = +req.params.cartId;
@@ -42,9 +41,25 @@ router.get("/create/:cartId", (req, res) => {
 
 router.get("/list", (req, res) => {
   const orders = [...ORDERS.values()];
+  let token = req.headers["authorization"];
+  if (!token) {
+    res.send({
+      success: false,
+      error: {
+        message: "token is not avasiable!",
+      },
+    });
+  }
+  token = token.split(" ")[1];
+
+  const userDetail = verifyAccessToken(token);
+  const { id: userId } = userDetail;
+
+  const filteredOrders = orders.filter(({ user_id }) => user_id === userId);
+  const ids = filteredOrders.map(({ id }) => id);
   res.status(200).send({
     success: true,
-    orders: orders,
+    orderIds: ids,
   });
 });
 
