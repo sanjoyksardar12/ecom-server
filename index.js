@@ -13,11 +13,11 @@ dotenv.config();
 const PORT = 4000;
 
 const app = express();
-app.use(
-  cors({
-    origin: 'http://localhost:3000' // pass it from env
-  })
-);
+// app.use(
+//   cors({
+//     origin: 'http://localhost:3000' // pass it from env
+//   })
+// );
 app.options('*', cors());
 app.use(cors());
 
