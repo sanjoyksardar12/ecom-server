@@ -7,7 +7,8 @@
     "node": "14.x"
   },
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "lint": "eslint --fix"
   },
   "author": "SanjoyK <sanjoyksardar12@gmail.com>",
   "license": "MIT",
@@ -20,5 +21,13 @@
     "jsonwebtoken": "9.0.0",
     "nodemon": "2.0.21",
     "pbkdf2-password": "1.2.1"
+  },
+  "devDependencies": {
+    "eslint": "8.35.0",
+    "eslint-config-standard": "17.0.0",
+    "eslint-plugin-import": "2.27.5",
+    "eslint-plugin-n": "15.6.1",
+    "eslint-plugin-promise": "6.1.1",
+    "prettier": "2.8.4"
   }
 }

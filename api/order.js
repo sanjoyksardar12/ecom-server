@@ -1,23 +1,23 @@
-const express = require("express");
-const { verifyAccessToken } = require("./accessToken");
-const { CARTS } = require("./cart");
+const express = require('express');
+const { verifyAccessToken } = require('./accessToken');
+const { CARTS } = require('./cart');
 
 const router = express.Router();
 
 const ORDERS = new Map();
 
-router.get("/create/:cartId", (req, res) => {
+router.get('/create/:cartId', (req, res) => {
   const cartId = +req.params.cartId;
-  let token = req.headers["authorization"];
+  let token = req.headers['authorization'];
   if (!token) {
     res.send({
       success: false,
       error: {
-        message: "token is not avasiable!",
-      },
+        message: 'token is not avasiable!'
+      }
     });
   }
-  token = token.split(" ")[1];
+  token = token.split(' ')[1];
 
   const userDetail = verifyAccessToken(token);
   const { id: userId } = userDetail;
@@ -27,30 +27,30 @@ router.get("/create/:cartId", (req, res) => {
     id: cartId,
     cart_id: cartId,
     user_id: userId,
-    created_at: Date.now(),
+    created_at: Date.now()
   };
   ORDERS.set(orderDetail.id, orderDetail);
   return res.status(200).send({
     success: true,
-    message: "created order!!",
+    message: 'created order!!',
     orderId: orderDetail.id,
     cart_id: orderDetail.cart_id,
-    items: [...CARTS.get(cartId).items],
+    items: [...CARTS.get(cartId).items]
   });
 });
 
-router.get("/list", (req, res) => {
+router.get('/list', (req, res) => {
   const orders = [...ORDERS.values()];
-  let token = req.headers["authorization"];
+  let token = req.headers['authorization'];
   if (!token) {
     res.send({
       success: false,
       error: {
-        message: "token is not avasiable!",
-      },
+        message: 'token is not avasiable!'
+      }
     });
   }
-  token = token.split(" ")[1];
+  token = token.split(' ')[1];
 
   const userDetail = verifyAccessToken(token);
   const { id: userId } = userDetail;
@@ -59,7 +59,7 @@ router.get("/list", (req, res) => {
   const ids = filteredOrders.map(({ id }) => id);
   res.status(200).send({
     success: true,
-    orderIds: ids,
+    orderIds: ids
   });
 });
 

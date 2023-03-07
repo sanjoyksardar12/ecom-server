@@ -1,48 +1,48 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
 
 const ITEMS = new Map();
 ITEMS.set(0, {
   id: 0,
-  name: "sanjoy2",
-  created_at: 1678043049335,
+  name: 'Bayaband Thong-Strap Flip-Flops',
+  created_at: 1678043049335
 });
 
 ITEMS.set(1, {
   id: 1,
-  name: "sanjoy2",
-  created_at: 1678043049335,
+  name: 'Galaxy Comfort IDP Thong-Strap Flip-Flops',
+  created_at: 1678043049335
 });
 
 ITEMS.set(2, {
   id: 2,
-  name: "sanjoy2",
-  created_at: 1678043049335,
+  name: 'Ondeck Thong-Strap Flip-Flops',
+  created_at: 1678043049335
 });
 
 let NO_OF_ITEMS = 0;
 
-router.post("/create", (req, res) => {
+router.post('/create', (req, res) => {
   const { name } = req.body;
 
   const itemDetail = {
     id: NO_OF_ITEMS++,
     name: name,
-    created_at: Date.now(),
+    created_at: Date.now()
   };
 
   ITEMS.set(itemDetail.id, itemDetail);
   res.status(200).send({
-    success: true,
+    success: true
   });
 });
 
-router.get("/list", (_req, res) => {
+router.get('/list', (_req, res) => {
   res.status(200).send({
     items: [...ITEMS.values()].map((detail) => ({
-      ...detail,
+      ...detail
     })),
-    success: true,
+    success: true
   });
 });
 
