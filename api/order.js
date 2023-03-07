@@ -22,7 +22,6 @@ router.get('/create/:cartId', (req, res) => {
   const userDetail = verifyAccessToken(token);
   const { id: userId } = userDetail;
 
-  const cartDetail = CARTS.get(cartId);
   const orderDetail = {
     id: cartId,
     cart_id: cartId,

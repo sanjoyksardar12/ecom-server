@@ -3,7 +3,7 @@ const router = express.Router();
 const { verifyAccessToken, generateAccessToken } = require('./accessToken');
 
 const CARTS = new Map();
-let NO_OF_CARTS = 0;
+let NO_OF_CARTS = 1;
 
 function getCardDetailFromUserId(userId) {
   return [...CARTS.values()].find(({ user_id, is_purchased }) => user_id === userId && !is_purchased);

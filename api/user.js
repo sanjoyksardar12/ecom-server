@@ -5,7 +5,7 @@ const router = express.Router();
 
 //user
 const USERS = new Map();
-let NO_OF_USERS = 0;
+let NO_OF_USERS = 1;
 
 // attached userDetail in request
 function createAccount(username, password) {

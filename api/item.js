@@ -2,11 +2,6 @@ const express = require('express');
 const router = express.Router();
 
 const ITEMS = new Map();
-ITEMS.set(0, {
-  id: 0,
-  name: 'Bayaband Thong-Strap Flip-Flops',
-  created_at: 1678043049335
-});
 
 ITEMS.set(1, {
   id: 1,
@@ -20,7 +15,13 @@ ITEMS.set(2, {
   created_at: 1678043049335
 });
 
-let NO_OF_ITEMS = 3;
+ITEMS.set(3, {
+  id: 3,
+  name: 'Bayaband Thong-Strap Flip-Flops',
+  created_at: 1678043049335
+});
+
+let NO_OF_ITEMS = 4;
 
 router.post('/create', (req, res) => {
   const { name } = req.body;
