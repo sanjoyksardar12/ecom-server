@@ -20,7 +20,7 @@ ITEMS.set(2, {
   created_at: 1678043049335
 });
 
-let NO_OF_ITEMS = 0;
+let NO_OF_ITEMS = 3;
 
 router.post('/create', (req, res) => {
   const { name } = req.body;
